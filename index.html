@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>STUDENT REGISTRATION</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <form id="create-user-form">
+        <h1>STUDENT REGISTERATION</h1>
+        <label for="fname">First name:</label>
+        <input type="text" id="username" name="fname" required>
+
+        <label for="lname">Last name:</label>
+        <input type="text" id="username" name="lname" required>
+
+        <label for="dob" class="bod">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="bg">Blood Group:</label>
+        <input type="text" id="bg" name="bg" required>
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="cou">Course:</label>
+        <input type="cou" id="cou" name="cou" required>
+
+        <label for="str">Stream:</label>
+        <input type="str" id="str" name="str" required>
+
+        <label for="ins">Institution Name:</label>
+        <input type="ins" id="ins" name="ins" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="pwd">Password:</label>
+        <input type="pwd" id="pwd" name="pwd" required>
+
+        <label for="nat">Nationality:</label>
+        <input type="nat" id="nat" name="nat" required>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" required>
+
+        <label for="address1">Address Line 1:</label>
+        <input type="text" id="address1" name="address1" required>
+
+        <label for="address2">Address Line 2:</label>
+        <input type="text" id="address2" name="address2">
+
+        <label for="zip">Zip Code:</label>
+        <input type="text" id="zip" name="zip" required>
+
+        <button 
+            type="submit" 
+            onclick="redirectToDisplayPage()" 
+            required>SUBMIT</button>
+        </form>
+    <script>
+        const form = document.getElementById("create-user-form");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault(); // prevent the form from submitting normally
+            // check that all required fields are filled in
+            if (form.checkValidity()) {
+                try {
+                    // submit the form using fetch
+                    const response = await fetch("http://localhost:3000/create", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(Object.fromEntries(new FormData(form)))
+                    });
+                    if (response.ok) {
+                        alert("User created successfully!");
+                        form.reset(); // reset the form
+                    } else {
+                        alert("Error creating user");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Error creating user");
+                }
+            } else {
+                form.reportValidity(); // display error messages for invalid fields
+            }
+        });
+
+        function redirectToDisplayPage() {
+            window.location.href = "thanks.html";
+        }
+
+    </script>
+</body>
+</html>
